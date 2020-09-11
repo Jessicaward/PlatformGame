@@ -6,6 +6,8 @@ namespace PlatformGame
 {
     public class Game1 : Game
     {
+        Texture2D ballTexture;
+
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
@@ -27,6 +29,7 @@ namespace PlatformGame
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            ballTexture = Content.Load<Texture2D>("ball");
             // TODO: use this.Content to load your game content here
         }
 
@@ -44,6 +47,9 @@ namespace PlatformGame
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
+            _spriteBatch.Begin();
+            _spriteBatch.Draw(ballTexture, new Vector2(0, 0), Color.White);
+            _spriteBatch.End();
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
