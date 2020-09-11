@@ -9,18 +9,32 @@ namespace PlatformGame
         private int yCoord;
         private bool visited;
 
-        public SquareType type()
+        public SquareType Type
         {
             get { return type; }
         }
-        public int xCoord()
+        public int XCoord
         {
-
+            get { return xCoord; }
+            set { xCoord = value; }
+        }
+        public int YCoord
+        {
+            get { return yCoord; }
+            set { yCoord = value; }
+        }
+        public bool Visited
+        {
+            get { return visited; }
+            set { visited = value; }
         }
 
-        public Cell()
+        public Cell(SquareType type, int xCoord, int yCoord, bool visited)
         {
-
+            this.type = type;
+            this.xCoord = xCoord;
+            this.yCoord = yCoord;
+            this.visited = visited;
         }
     }
 }

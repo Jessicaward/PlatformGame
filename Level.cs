@@ -5,10 +5,10 @@ namespace PlatformGame
 {
     public class Level
     {
-        private SquareType[,] map;
+        private Cell[,] map;
         private int pickupsRemaining;
 
-        public SquareType[,] Map
+        public Cell[,] Map
         {
             get { return map; }
         }
@@ -24,64 +24,69 @@ namespace PlatformGame
             {
                 case Difficulty.Smol:
                 default:
-                    map = Generate(new SquareType[64,64]);
+                    map = Generate(new Cell[64,64]);
                     pickupsRemaining = 6;
                     
                     break;
                 case Difficulty.Reggi:
-                    map = new SquareType[256, 256];
+                    map = Generate(new Cell[256, 256]);
                     pickupsRemaining = 25;
                     Generate(map);
                     break;
                 case Difficulty.Chonky:
-                    map = new SquareType[512, 512];
+                    map = Generate(new Cell[512, 512]);
                     pickupsRemaining = 50;
                     Generate(map);
                     break;
             }
         }
 
-        public SquareType GetSquareType(int x, int y) => map[x,y];
+        public SquareType GetSquareType(int x, int y)
+        {
+            return map[x, y].Type;
+        }
 
         public void Update(GameTime gameTime)
         {
             //remove coins here etc
         }
 
-        public SquareType[,] Generate(SquareType [,] mapArray)
+        public Cell[,] Generate(Cell [,] mapArray)
         {
             mapArray = InitialiseMaze(mapArray);
 
             bool check = false;
 
-            int xIndex = 0;
-            int yIndex = 1;
+            Cell start = mapArray[0, 1];
 
-
-
+            Cell activeCell = start;
 
             do
             {
-                Walk(xIndex, yIndex, mapArray);
+                Walk(activeCell);
 
 
 
             } while (!check);
 
+            return mapArray;
+
             
         }
 
-        private int[] Walk(int x, int y, SquareType[,] map)
+        private Cell Walk(Cell cell)
         {
             bool check2 = false;
+
+            
 
             Random rnd = new Random();
 
 
-
+            return cell;
         }
 
-        private SquareType[,] InitialiseMaze(SquareType[,] map)
+        private Cell[,] InitialiseMaze(Cell[,] map)
         {
 
 
@@ -89,11 +94,11 @@ namespace PlatformGame
             { 
                 for (var y = 0; y < map.GetLength(1); y++)
                 {
-                    map[x, y] = SquareType.Wall;
+                    Cell cell = new Cell(SquareType.Wall, x, y, false);
+
+                    map[x, y] = cell;
                 }
             }
-
-            map[0, 1] = SquareType.Floor;
 
             return map;
         }
