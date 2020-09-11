@@ -8,6 +8,7 @@ assets needed:
     enemy
     player
     pickup
+    exit
 
 algorithm for maze generation: A*
 
