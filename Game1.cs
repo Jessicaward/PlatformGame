@@ -6,7 +6,11 @@ namespace PlatformGame
 {
     public class Game1 : Game
     {
-        Texture2D ballTexture;
+        Texture2D wallTexture;
+        Texture2D floorTexture;
+        Texture2D playerTexture;
+        Texture2D enemyTexture;
+        Texture2D pickupTexture;
 
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
@@ -20,8 +24,6 @@ namespace PlatformGame
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
             base.Initialize();
         }
 
@@ -29,16 +31,17 @@ namespace PlatformGame
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            ballTexture = Content.Load<Texture2D>("ball");
-            // TODO: use this.Content to load your game content here
+            wallTexture = Content.Load<Texture2D>("wall");
+            floorTexture = Content.Load<Texture2D>("floor");
+            playerTexture = Content.Load<Texture2D>("player");
+            enemyTexture = Content.Load<Texture2D>("enemy");
+            pickupTexture = Content.Load<Texture2D>("pickup");
         }
 
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
-            // TODO: Add your update logic here
 
             base.Update(gameTime);
         }
@@ -50,7 +53,6 @@ namespace PlatformGame
             _spriteBatch.Begin();
             _spriteBatch.Draw(ballTexture, new Vector2(0, 0), Color.White);
             _spriteBatch.End();
-            // TODO: Add your drawing code here
 
             base.Draw(gameTime);
         }
