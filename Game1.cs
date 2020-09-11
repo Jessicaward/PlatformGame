@@ -6,11 +6,8 @@ namespace PlatformGame
 {
     public class Game1 : Game
     {
-        Texture2D wallTexture;
-        Texture2D floorTexture;
-        Texture2D playerTexture;
-        Texture2D enemyTexture;
-        Texture2D pickupTexture;
+        Player player;
+        Level level;
 
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
@@ -24,6 +21,8 @@ namespace PlatformGame
 
         protected override void Initialize()
         {
+            player = new Player();
+            level = new Level(Difficulty.Smol); //todo: this should take difficulty from player
             base.Initialize();
         }
 
@@ -31,17 +30,15 @@ namespace PlatformGame
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            wallTexture = Content.Load<Texture2D>("wall");
-            floorTexture = Content.Load<Texture2D>("floor");
-            playerTexture = Content.Load<Texture2D>("player");
-            enemyTexture = Content.Load<Texture2D>("enemy");
-            pickupTexture = Content.Load<Texture2D>("pickup");
+            player.Texture = Content.Load<Texture2D>("player");
         }
 
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+            player.Update(gameTime, level);
+            level.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -51,7 +48,7 @@ namespace PlatformGame
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin();
-            _spriteBatch.Draw(ballTexture, new Vector2(0, 0), Color.White);
+            _spriteBatch.Draw(player.Texture, player.PlayerPosition, Color.White);
             _spriteBatch.End();
 
             base.Draw(gameTime);

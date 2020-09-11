@@ -1,14 +1,17 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace PlatformGame
 {
     public class Player
     {
-        private bool dead = false;
-        private int score = 0;
-        private int livesRemaining = 3000;
-        private Vector2 playerPosition = new Vector2();
+        private bool dead;
+        private int score;
+        private int livesRemaining;
+        private Vector2 playerPosition;
+        Texture2D texture;
 
         public bool Dead
         {
@@ -27,10 +30,24 @@ namespace PlatformGame
 
         public Vector2 PlayerPosition
         {
-            get { return PlayerPosition; }
+            get { return playerPosition; }
         }
 
-        public void Update(GameTime gameTime)
+        public Texture2D Texture
+        {
+            get { return texture; }
+            set { texture = value; }
+        }
+
+        public Player()
+        {
+            livesRemaining = 3;
+            playerPosition = new Vector2(0, 0);
+            dead = false;
+            score = 0;
+        }
+
+        public void Update(GameTime gameTime, Level level)
         {
             var keyboardState = Keyboard.GetState();
             var proposedPosition = new Vector2();
@@ -45,27 +62,27 @@ namespace PlatformGame
                 proposedPosition = new Vector2(playerPosition.X + 1, playerPosition.Y);
             }
 
-            if (keyboardState.IsKeyDown(Keys.W))
+            if (keyboardState.IsKeyDown(Keys.S))
             {
                 proposedPosition = new Vector2(playerPosition.X, playerPosition.Y + 1);
             }
 
-            if (keyboardState.IsKeyDown(Keys.S))
+            if (keyboardState.IsKeyDown(Keys.W))
             {
                 proposedPosition = new Vector2(playerPosition.X, playerPosition.Y - 1);
             }
 
-            UpdatePlayerPosition(proposedPosition);
+            UpdatePlayerPosition(proposedPosition, level);
         }
 
-        public void UpdatePlayerPosition(Vector2 proposedPosition)
+        private void UpdatePlayerPosition(Vector2 proposedPosition, Level level)
         {
             if (dead)
             {
                 return;
             }
 
-            if (Level.GetSquareType(proposedPosition.X, proposedPosition.Y) == SquareType.Wall)
+            if (level.GetSquareType((int)Math.Floor(proposedPosition.X), (int)Math.Floor(proposedPosition.Y)) == SquareType.Wall)
             {
                 return;
             }
