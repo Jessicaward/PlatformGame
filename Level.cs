@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 
 namespace PlatformGame
@@ -7,6 +8,8 @@ namespace PlatformGame
     {
         private SquareType[,] map;
         private int pickupsRemaining;
+        Texture2D wallTexture;
+        Texture2D floorTexture;
 
         public SquareType[,] Map
         {
@@ -16,6 +19,18 @@ namespace PlatformGame
         public int PickupsRemaining
         {
             get { return pickupsRemaining; }
+        }
+
+        public Texture2D WallTexture
+        {
+            get { return wallTexture; }
+            set { wallTexture = value; }
+        }
+
+        public Texture2D FloorTexture
+        {
+            get { return floorTexture; }
+            set { floorTexture = value; }
         }
 
         public Level(Difficulty difficulty)
@@ -48,7 +63,7 @@ namespace PlatformGame
             //remove coins here etc
         }
 
-        public SquareType[,] Generate(SquareType [,] mapArray)
+        private SquareType[,] Generate(SquareType [,] mapArray)
         {
             mapArray = InitialiseMaze(mapArray);
 
@@ -56,19 +71,10 @@ namespace PlatformGame
 
             int xIndex = 0;
             int yIndex = 1;
-
-
-
-
             do
             {
                 Walk(xIndex, yIndex, mapArray);
-
-
-
             } while (!check);
-
-            
         }
 
         private int[] Walk(int x, int y, SquareType[,] map)
@@ -76,15 +82,10 @@ namespace PlatformGame
             bool check2 = false;
 
             Random rnd = new Random();
-
-
-
         }
 
         private SquareType[,] InitialiseMaze(SquareType[,] map)
         {
-
-
             for(var x = 0; x < map.GetLength(0); x++)
             { 
                 for (var y = 0; y < map.GetLength(1); y++)
