@@ -17,6 +17,11 @@ namespace PlatformGame
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
+            _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+            _graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+            _graphics.IsFullScreen = true;
+            _graphics.ApplyChanges();
+
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             tileSize = 8;
@@ -57,7 +62,7 @@ namespace PlatformGame
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             _spriteBatch.Begin();
             for(var x = 0; x < level.Map.GetLength(0); x++)
