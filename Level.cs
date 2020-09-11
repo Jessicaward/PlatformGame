@@ -1,12 +1,32 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+
 namespace PlatformGame
 {
     public class Level
     {
-        public static SquareType GetSquareType(float x, float y)
+        SquareType[,] map;
+        public Level(Difficulty difficulty)
         {
-            //todo: implement this lmao, it needs to check the map at the x and y points
-            return SquareType.Floor;
+            switch (difficulty)
+            {
+                case Difficulty.Smol:
+                default:
+                    map = new SquareType[64, 64];
+                    break;
+                case Difficulty.Reggi:
+                    map = new SquareType[256, 256];
+                    break;
+                case Difficulty.Chonky:
+                    map = new SquareType[512, 512];
+                    break;
+            }
+        }
+
+        public SquareType GetSquareType(int x, int y) => map[x,y];
+
+        public void Update(GameTime gameTime)
+        {
+
         }
     }
 }
