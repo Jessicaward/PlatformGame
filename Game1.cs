@@ -37,8 +37,14 @@ namespace PlatformGame
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
             player.Update(gameTime, level);
             level.Update(gameTime);
+
+            if (player.WinState)
+            {
+                //todo: Player wins, show credits or something idk
+            }
 
             base.Update(gameTime);
         }

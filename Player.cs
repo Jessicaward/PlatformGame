@@ -8,6 +8,7 @@ namespace PlatformGame
     public class Player
     {
         private bool dead;
+        private bool winState;
         private int score;
         private int livesRemaining;
         private Vector2 playerPosition;
@@ -16,6 +17,11 @@ namespace PlatformGame
         public bool Dead
         {
             get { return dead; }
+        }
+
+        public bool WinState
+        {
+            get { return winState; }
         }
 
         public int Score
@@ -85,6 +91,17 @@ namespace PlatformGame
             if (level.GetSquareType((int)Math.Floor(proposedPosition.X), (int)Math.Floor(proposedPosition.Y)) == SquareType.Wall)
             {
                 return;
+            }
+
+            if (level.GetSquareType((int)Math.Floor(proposedPosition.X), (int)Math.Floor(proposedPosition.Y)) == SquareType.Exit)
+            {
+                if(level.PickupsRemaining > 0)
+                {
+                    return;
+                }
+
+                //player wins!
+                winState = true;
             }
 
             playerPosition = proposedPosition;

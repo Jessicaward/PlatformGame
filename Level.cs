@@ -4,7 +4,19 @@ namespace PlatformGame
 {
     public class Level
     {
-        SquareType[,] map;
+        private SquareType[,] map;
+        private int pickupsRemaining;
+
+        public SquareType[,] Map
+        {
+            get { return map; }
+        }
+
+        public int PickupsRemaining
+        {
+            get { return pickupsRemaining; }
+        }
+
         public Level(Difficulty difficulty)
         {
             switch (difficulty)
@@ -12,12 +24,15 @@ namespace PlatformGame
                 case Difficulty.Smol:
                 default:
                     map = new SquareType[64, 64];
+                    pickupsRemaining = 6;
                     break;
                 case Difficulty.Reggi:
                     map = new SquareType[256, 256];
+                    pickupsRemaining = 25;
                     break;
                 case Difficulty.Chonky:
                     map = new SquareType[512, 512];
+                    pickupsRemaining = 50;
                     break;
             }
         }
@@ -26,7 +41,7 @@ namespace PlatformGame
 
         public void Update(GameTime gameTime)
         {
-
+            //remove coins here etc
         }
     }
 }
