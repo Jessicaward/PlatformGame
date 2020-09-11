@@ -1,0 +1,19 @@
+﻿top down
+maze game
+maze is randomly generated on each play
+
+assets needed:
+    one wall
+    one floor
+    enemy
+    player
+    pickup
+    exit
+
+algorithm for maze generation: A*
+
+enemy will follow player
+
+player has to collect all pickups before exiting the maze
+
+realtime following
