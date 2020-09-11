@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-namespace PlatformGame
+﻿namespace PlatformGame
 {
     public class Cell
     {
@@ -13,11 +11,13 @@ namespace PlatformGame
         {
             get { return type; }
         }
+
         public int XCoord
         {
             get { return xCoord; }
             set { xCoord = value; }
         }
+    
         public int YCoord
         {
             get { return yCoord; }

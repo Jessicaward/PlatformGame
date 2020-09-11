@@ -1,5 +1,4 @@
-﻿using System;
-namespace PlatformGame
+﻿namespace PlatformGame
 {
     public enum SquareType
     {

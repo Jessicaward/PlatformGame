@@ -8,6 +8,8 @@ namespace PlatformGame
     {
         Player player;
         Level level;
+        int tileSize;
+        Texture2D coinTexture;
 
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
@@ -17,6 +19,7 @@ namespace PlatformGame
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+            tileSize = 8;
         }
 
         protected override void Initialize()
@@ -31,6 +34,9 @@ namespace PlatformGame
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             player.Texture = Content.Load<Texture2D>("player");
+            level.WallTexture = Content.Load<Texture2D>("wall");
+            level.FloorTexture = Content.Load<Texture2D>("floor");
+            coinTexture = Content.Load<Texture2D>("coin");
         }
 
         protected override void Update(GameTime gameTime)
@@ -54,7 +60,25 @@ namespace PlatformGame
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin();
-            _spriteBatch.Draw(player.Texture, player.PlayerPosition, Color.White);
+            for(var x = 0; x < level.Map.GetLength(0); x++)
+            {
+                for(var y = 0; y < level.Map.GetLength(1); y++)
+                {
+                    switch (level.Map[x, y].Type)
+                    {
+                        case SquareType.Wall:
+                            _spriteBatch.Draw(level.WallTexture, new Rectangle(new Point(x * tileSize, y * tileSize), new Point(tileSize, tileSize)), Color.White);
+                            break;
+                        case SquareType.Floor:
+                            _spriteBatch.Draw(level.FloorTexture, new Rectangle(new Point(x * tileSize, y * tileSize), new Point(tileSize, tileSize)), Color.White);
+                            break;
+                        case SquareType.FloorWithCoin:
+                            _spriteBatch.Draw(level.FloorTexture, new Rectangle(new Point(x * tileSize, y * tileSize), new Point(tileSize, tileSize)), Color.White);
+                            _spriteBatch.Draw(coinTexture, new Rectangle(new Point(x * tileSize, y * tileSize), new Point(tileSize, tileSize)), Color.White);
+                            break;
+                    }
+                }
+            }
             _spriteBatch.End();
 
             base.Draw(gameTime);

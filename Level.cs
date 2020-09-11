@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 
 namespace PlatformGame
@@ -7,6 +8,8 @@ namespace PlatformGame
     {
         private Cell[,] map;
         private int pickupsRemaining;
+        Texture2D wallTexture;
+        Texture2D floorTexture;
 
         public Cell[,] Map
         {
@@ -16,6 +19,18 @@ namespace PlatformGame
         public int PickupsRemaining
         {
             get { return pickupsRemaining; }
+        }
+
+        public Texture2D WallTexture
+        {
+            get { return wallTexture; }
+            set { wallTexture = value; }
+        }
+
+        public Texture2D FloorTexture
+        {
+            get { return floorTexture; }
+            set { floorTexture = value; }
         }
 
         public Level(Difficulty difficulty)
@@ -70,8 +85,6 @@ namespace PlatformGame
             } while (!check);
 
             return mapArray;
-
-            
         }
 
         private Cell Walk(Cell cell)
@@ -88,8 +101,6 @@ namespace PlatformGame
 
         private Cell[,] InitialiseMaze(Cell[,] map)
         {
-
-
             for(var x = 0; x < map.GetLength(0); x++)
             { 
                 for (var y = 0; y < map.GetLength(1); y++)
