@@ -45,6 +45,7 @@ namespace PlatformGame
             set { texture = value; }
         }
 
+        //Initialise variables
         public Player()
         {
             livesRemaining = 3;
@@ -83,18 +84,22 @@ namespace PlatformGame
 
         private void UpdatePlayerPosition(Vector2 proposedPosition, Level level)
         {
+            //If player is dead
             if (dead)
             {
                 return;
             }
 
+            //If player is trying to enter a wall tile
             if (level.GetSquareType((int)Math.Floor(proposedPosition.X), (int)Math.Floor(proposedPosition.Y)) == SquareType.Wall)
             {
                 return;
             }
 
+            //If player is trying to enter the exit tile
             if (level.GetSquareType((int)Math.Floor(proposedPosition.X), (int)Math.Floor(proposedPosition.Y)) == SquareType.Exit)
             {
+                //Check if the player has picked up all pickups
                 if(level.PickupsRemaining > 0)
                 {
                     return;
@@ -104,6 +109,7 @@ namespace PlatformGame
                 winState = true;
             }
 
+            //If none of the above checks hit, then move player to the tile they're trying to enter
             playerPosition = proposedPosition;
         }
     }

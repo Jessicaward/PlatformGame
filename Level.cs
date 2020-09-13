@@ -75,9 +75,6 @@ namespace PlatformGame
             Cell start = mapArray[0, 1];
 
             Cell activeCell = start;
-
-           
-
        
             return mapArray;
         }
